@@ -31,7 +31,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
-    <?php include '../includes/header.php'; ?>
+    <header>
+        <h1>Christmas Events</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.php">Events</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="./signup.php">Register</a></li>
+                <li><a href="./login.php">Login</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <main class="container">
         <form class="signup-form" action="" method="POST">
