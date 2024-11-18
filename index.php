@@ -37,6 +37,8 @@ $result = $conn->query($sql);
         </section>
         <section id="events">
             <h2>Upcoming Events</h2>
+            <p>Events List card with Button to purchase ticket.</p>
+            <p>User must be login before they can purchase a ticket</p>
             <?php if ($result->num_rows > 0): ?>
                 <?php while($row = $result->fetch_assoc()): ?>
                     <div class="event-card">
