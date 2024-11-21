@@ -57,7 +57,7 @@ if (isset($_GET['token'])) {
             $email = $row['Email'];
 
             // Update password in the database
-            $stmt = $conn->prepare("UPDATE Register SET Password = ? WHERE Email = ?");
+            $stmt = $conn->prepare("UPDATE customers SET Password = ? WHERE Email = ?");
             $stmt->bind_param("ss", $new_password, $email);
             if ($stmt->execute()) {
                 // Delete the token after successful reset
