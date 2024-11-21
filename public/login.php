@@ -1,27 +1,7 @@
 <?php
 include '../db.php';
-session_start();
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    $sql = "SELECT * FROM Customer WHERE Email = '$email'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['Password'])) {
-            $_SESSION['customer_id'] = $row['CustomerID'];
-            header("Location: events.php");
-        } else {
-            echo "Invalid password.";
-        }
-    } else {
-        echo "No account found with that email.";
-    }
-}
-?>
+ session_start();
+ ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,6 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Login</title>
     <link rel="stylesheet" href="../styles/formstyle.css">
     <link rel="stylesheet" href="../styles/styles.css">
+      <!-- Ensure SweetAlert2 is loaded before any JavaScript calls it -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <header>
@@ -50,9 +32,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form method="POST" action="">
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
+                <p class="forgot-password"><a href="../public/forgot-password.php">Forgot Password?</a></p>
                 <input type="submit" value="Login">
+                <p class="account-link">Don't have an account? <a href="../public/signup.php">Register Now!</a></p>
             </form>
         </div>
     </main>
 </body>
 </html>
+
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Prepared statement to prevent SQL injection
+    $stmt = $conn->prepare("SELECT * FROM customers WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Email exists, now check the password
+        $user = $result->fetch_assoc();
+
+        if (password_verify($password, $user['password'])) {
+            // Password is correct
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['firstName'] = $user['firstName'];
+
+            // Redirect to ticket purchasing page
+            echo "<script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Successful!',
+                text: 'Welcome back, " . addslashes($user['firstName']) . "!',
+                showConfirmButton: false,
+                timer: 3000
+            }).then(function() {
+                window.location.href = '../public/purchase.php';
+            });
+          </script>";
+        } else {
+            // Incorrect password
+            echo "<script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid Password',
+                        text: 'Please try again.',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                        confirmButton: 'alert-button'  
+                        }
+                    });
+                  </script>";
+        }
+    } else {
+        // Email doesn't exist
+        echo "<script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Email Not Found',
+                    text: 'Please create an account to get started..',
+                    confirmButtonText: 'OK',
+                    customClass: {
+                    confirmButton: 'alert-button'  
+                     }
+                });
+              </script>";
+    }
+    $stmt->close();
+    $conn->close();
+}
+?>
+

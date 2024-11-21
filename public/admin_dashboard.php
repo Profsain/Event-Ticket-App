@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 include 'config.php';
 session_start();
 
@@ -22,4 +22,5 @@ $result = $conn->query($sql);
         <a href="edit_sale.php?id=<?php echo $row['SaleID']; ?>">Edit</a> |
         <a href="delete_sale.php?id=<?php echo $row['SaleID']; ?>">Delete</a>
     </div>
-<?php } ?>
+<?php } ?> -->
+

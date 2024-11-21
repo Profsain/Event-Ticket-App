@@ -92,21 +92,23 @@ footer {
 
 
 /* form styles */
-.signup-form {
+.admin-form {
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 500px;
+    margin: 1200px auto;
 }
 
-.signup-form h2 {
+.admin-form h2 {
     margin-bottom: 20px;
 }
 
-.signup-form input[type="text"],
-.signup-form input[type="email"],
-.signup-form input[type="password"] {
+.admin-form input[type="text"],
+.admin-form input[type="email"],
+.admin-form input[type="text"],
+.admin-form input[type="password"] {
     width: 90%;
     padding: 10px;
     margin: 5px 0 10px 0;
@@ -114,7 +116,7 @@ footer {
     border-radius: 3px;
 }
 
-.signup-form input[type="submit"] {
+.admin-form input[type="submit"] {
     background-color: #ff5722;
     color: white;
     padding: 10px;
@@ -124,7 +126,7 @@ footer {
     width: 100%;
 }
 
-.signup-form input[type="submit"]:hover {
+.admin-form input[type="submit"]:hover {
     background-color: #4cae4c;
 }
 .account-link {
@@ -156,23 +158,4 @@ footer {
     border: none !important;
     margin-top: 10px;
     display: none;
-}
-.admin-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    margin: 120px auto;
-}
-.admin-form input[type="text"],
-.admin-form input[type="email"],
-.admin-form input[type="text"],
-.admin-form input[type="password"],
-.admin-form input[type="submit"] {
-    width: 95% !important;
-    padding: 10px;
-    margin: 5px 0 10px 0 !;
-    border: 1px solid #ccc;
-    border-radius: 3px;
 }
