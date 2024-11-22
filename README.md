@@ -1,4 +1,7 @@
 ## Event Ticket App
+super_admin
+adminpass
+Navigate to admin page: http://localhost/christmasTicketCMS/public/adminDashboard/admin_register.php
 
 ### Description
 You must build or develop the front and back end of a web-based content management system (CMS) system required to store and manage information, the system should allow users or clients to register before they could log in using username and password, after logging in the user should be able to input their details to accommodate the scenario and should not be able to delete or update his or other users information. The user login details and information should be stored permanently in the backend database.
