@@ -8,6 +8,16 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+// Retrieve the event_id from the URL
+if (isset($_GET['event_id']) && is_numeric($_GET['event_id'])) {
+    $event_id = $_GET['event_id'];
+    // Use $event_id to fetch event details or process the purchase
+    // Example: $eventDetails = getEventDetails($event_id);
+} else {
+    echo "<p>Invalid event ID. Please select a valid event.</p>";
+    exit();
+}
+
 // Check if event_id is passed in the URL and is numeric
 if (!isset($_GET['event_id']) || !is_numeric($_GET['event_id'])) {
     die("Invalid event ID.");
@@ -261,14 +271,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <nav>
         <ul>
             <li><a href="../index.php">Events</a></li>
-            <li><a href="#about">About Us</a></li>
+            <li><a href="./about.php">About Us</a></li>
             <li><a href="./signup.php">Register</a></li>
-            <li><a href="./login.php">Login</a></li>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <li><a href="./myevents.php">My Tickets</a></li>
+                <li><a href="./logout.php">Logout</a></li>
+            <?php else: ?>
+                <li><a href="./login.php">Login</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 </header>
 
 <div class="purchase-container">
+
     <h1>Purchase Ticket for Event: <?php echo htmlspecialchars($event['eventName']); ?></h1>
     <div class="ticket-description">
     <h2>Event Details</h2>

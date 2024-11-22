@@ -2,7 +2,7 @@
 include './db.php';
 session_start();
 
-$sql = "SELECT eventName, eventDate, eventTime, description, seatWithTable, seatWithoutTable FROM events";
+$sql = "SELECT id, eventName, eventDate, eventTime, description, seatWithTable, seatWithoutTable FROM events";
 $result = $conn->query($sql);
 ?>
 
@@ -14,6 +14,15 @@ $result = $conn->query($sql);
     <title>Christmas Events Ticketing</title>
     <link rel="stylesheet" href="styles/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        function handleBuyTickets(eventId) {
+            <?php if (isset($_SESSION['user_id'])): ?>
+                window.location.href = './public/purchase.php?event_id=' + eventId;
+            <?php else: ?>
+                alert('Please log in to purchase tickets.');
+            <?php endif; ?>
+        }
+    </script>
 </head>
 <body>
     
@@ -37,11 +46,11 @@ $result = $conn->query($sql);
                     <h3 style="font-size: 25px; margin-top: -12px;"><?php echo htmlspecialchars($row['eventName']); ?></h3>
                     <p style="margin-top: -12px;"><?php echo strlen($row['description']) > 200 ? substr(htmlspecialchars($row['description']), 0, 200) . '...' : htmlspecialchars($row['description']); ?></p>
                    <div style="display: grid; margin-top: -12px;">
-                   <p style="dmargin-top: -12px;">Seat with Table: <?php echo htmlspecialchars($row['seatWithTable']); ?> </p> 
-                    <p style="margin-top: -12px;">  Seat without Table: <?php echo htmlspecialchars($row['seatWithoutTable']); ?></p>
+                   <p style="margin-top: -12px;">Seat with Table: <?php echo htmlspecialchars($row['seatWithTable']); ?> </p> 
+                    <p style="margin-top: -12px;">Seat without Table: <?php echo htmlspecialchars($row['seatWithoutTable']); ?></p>
                    </div>
                     
-                    <a href="./public/login.php" class="ticket-button">Buy Tickets</a><br> <br>
+                    <button class="ticket-button" onclick="handleBuyTickets(<?php echo $row['id']; ?>)">Buy Tickets</button><br> <br>
                 </div>
             <?php endwhile; ?>
         <?php else: ?>

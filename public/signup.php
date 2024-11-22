@@ -15,14 +15,20 @@ include '../db.php';
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <header>
+     <header>
         <h1>Christmas Events</h1>
         <nav>
             <ul>
                 <li><a href="../index.php">Events</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="./signup.php">Register</a></li>
-                <li><a href="./login.php">Login</a></li>
+                <li><a href="./about.php">About Us</a></li>
+                
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <li><a href="./myevents.php">My Tickets</a></li>
+                    <li><a href="./logout.php">Logout</a></li>
+                <?php else: ?>
+                    <li><a href="./signup.php">Register</a></li>
+                    <li><a href="./login.php">Login</a></li>
+                <?php endif; ?>
             </ul>
         </nav>
     </header>
