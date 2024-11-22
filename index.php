@@ -46,8 +46,8 @@ $result = $conn->query($sql);
                     <h3 style="font-size: 25px; margin-top: -12px;"><?php echo htmlspecialchars($row['eventName']); ?></h3>
                     <p style="margin-top: -12px;"><?php echo strlen($row['description']) > 200 ? substr(htmlspecialchars($row['description']), 0, 200) . '...' : htmlspecialchars($row['description']); ?></p>
                    <div style="display: grid; margin-top: -12px;">
-                   <p style="margin-top: -12px;">Seat with Table: <?php echo htmlspecialchars($row['seatWithTable']); ?> </p> 
-                    <p style="margin-top: -12px;">Seat without Table: <?php echo htmlspecialchars($row['seatWithoutTable']); ?></p>
+                   <p>Seat with Table: <?php echo htmlspecialchars($row['seatWithTable']); ?> </p> 
+                    <p style="margin-top: -8px;">Seat without Table: <?php echo htmlspecialchars($row['seatWithoutTable']); ?></p>
                    </div>
                     
                     <button class="ticket-button" onclick="handleBuyTickets(<?php echo $row['id']; ?>)">Buy Tickets</button><br> <br>
